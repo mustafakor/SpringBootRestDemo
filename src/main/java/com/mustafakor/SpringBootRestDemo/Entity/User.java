@@ -5,19 +5,20 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class User {
 
 	@Id
@@ -43,7 +44,7 @@ public class User {
 	@Size(min=4)
 	private String password;
 	
-	@OneToMany(cascade = CascadeType.MERGE)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
 		name = "user_role",
 		joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
@@ -97,6 +98,12 @@ public class User {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", lastName=" + lastName + ", firstName=" + firstName
+				+ ", password=" + password + ", roles=" + roles + "]";
 	}
 
 	
