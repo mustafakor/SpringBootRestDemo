@@ -1,14 +1,10 @@
 package com.mustafakor.SpringBootRestDemo.Entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -30,14 +26,6 @@ public class Producer {
 	
 	@Column(name = "address")
 	private String address;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinTable(
-		name = "user_producer",
-		joinColumns = {@JoinColumn(name = "producer_id", referencedColumnName = "id")},
-		inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}
-	)
-	private User user;
 
 	public Integer getId() {
 		return id;
@@ -71,12 +59,5 @@ public class Producer {
 		this.address = address;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 	
 }

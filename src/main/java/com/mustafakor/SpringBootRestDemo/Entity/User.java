@@ -51,6 +51,14 @@ public class User {
 	    inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")}
 	)
 	private List<Role> roles;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+		name = "user_producer",
+		joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+		inverseJoinColumns = {@JoinColumn(name = "producer_id", referencedColumnName = "id")}
+	)
+	private List<Producer> producers;
 
 	public Integer getId() {
 		return id;
@@ -100,13 +108,12 @@ public class User {
 		this.roles = roles;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", lastName=" + lastName + ", firstName=" + firstName
-				+ ", password=" + password + ", roles=" + roles + "]";
+	public List<Producer> getProducers() {
+		return producers;
 	}
 
-	
-	
+	public void setProducers(List<Producer> producers) {
+		this.producers = producers;
+	}	
 	
 }
