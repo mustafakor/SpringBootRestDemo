@@ -2,7 +2,6 @@ package com.mustafakor.SpringBootRestDemo.Security;
 
 import io.jsonwebtoken.Jwts;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,12 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-	
-	@Autowired
 	private UserDetailsService userDetailsService;
 	
-	public JWTAuthorizationFilter(AuthenticationManager authManager) {
+	public JWTAuthorizationFilter(AuthenticationManager authManager, UserDetailsService userDetailsService) {
         super(authManager);
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
